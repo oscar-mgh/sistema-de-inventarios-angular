@@ -1,0 +1,51 @@
+<h1 class="my-4 text-center">Editar Producto</h1>
+
+@defer (on idle) {
+  <mat-card class="card mt-3">
+    <form class="example-form" [formGroup]="editForm">
+      <mat-form-field class="full-width">
+        <mat-label>Descripcion del producto</mat-label>
+        <input matInput formControlName="description" />
+
+        @if (editForm.controls['description'].getError('required')) {
+        <mat-error>Este campo es requerido</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Precio</mat-label>
+        <input type="number" min="0" matInput formControlName="price" />
+
+        @if (editForm.controls['price'].getError('required')) {
+        <mat-error>Este campo es requerido</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>Stock</mat-label>
+        <input type="number" min="0" matInput formControlName="stock" />
+
+        @if (editForm.controls['stock'].getError('required')) {
+        <mat-error>Este campo es requerido</mat-error>
+        } @if (editForm.controls['stock'].getError('min')) {
+        <mat-error>Intenta agregando al menos un producto</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="d-flex justify-content-between mt-2">
+        <button mat-raised-button color="primary" (click)="saveProduct()">
+          <mat-icon>save</mat-icon>Guardar
+        </button>
+
+        <button mat-raised-button color="warn" (click)="tryToDeleteProduct()">
+          <mat-icon>delete</mat-icon>Borrar
+        </button>
+      </div>
+    </form>
+  </mat-card>
+} @placeholder {
+  <div class="d-flex justify-content-center align-self-center m-5">
+    <mat-spinner color="primary"></mat-spinner>
+  </div>
+}
+
